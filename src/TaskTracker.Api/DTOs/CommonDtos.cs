@@ -22,3 +22,27 @@ public class PagedResponse<T>
     public bool HasNextPage { get; set; }
     public bool HasPreviousPage { get; set; }
 }
+
+public class PendingReminderResponse
+{
+    public Guid TaskId { get; set; }
+    public string TaskTitle { get; set; } = string.Empty;
+    public DateTimeOffset DueDate { get; set; }
+    public Guid OwnerUserId { get; set; }
+    public string OwnerEmail { get; set; } = string.Empty;
+    public string OwnerDisplayName { get; set; } = string.Empty;
+    public string ReminderType { get; set; } = string.Empty;
+    public bool HasReminderBeenSent { get; set; }
+    public double HoursUntilDue { get; set; }
+}
+
+public class ReminderProcessingResultResponse
+{
+    public int TotalPending { get; set; }
+    public int ProcessedCount { get; set; }
+    public int SuccessfulCount { get; set; }
+    public int FailedCount { get; set; }
+    public int SkippedCount { get; set; }
+    public List<Guid> ProcessedTaskIds { get; set; } = new();
+    public List<string> Errors { get; set; } = new();
+}

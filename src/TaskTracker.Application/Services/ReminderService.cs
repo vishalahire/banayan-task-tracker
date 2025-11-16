@@ -72,4 +72,111 @@ public class ReminderService : IReminderService
     {
         return await _reminderLogRepository.HasReminderBeenSentAsync(taskId, reminderType, taskDueDate, ct);
     }
+
+    public async Task<IReadOnlyList<PendingReminderDto>> GetPendingRemindersAsync(CancellationToken ct = default)
+    {
+        var window = TimeSpan.FromHours(24);
+        var tasksDue = await _taskRepository.GetTasksDueInWindowAsync(window, ct);
+        var pendingReminders = new List<PendingReminderDto>();
+
+        foreach (var task in tasksDue)
+        {
+            if (!task.DueDate.HasValue) continue;
+
+            var timeUntilDue = task.DueDate.Value - DateTimeOffset.UtcNow;
+            var reminderType = DetermineReminderType(timeUntilDue);
+            
+            var hasReminderBeenSent = await _reminderLogRepository.HasReminderBeenSentAsync(
+                task.Id, reminderType, task.DueDate.Value, ct);
+
+            pendingReminders.Add(new PendingReminderDto
+            {
+                TaskId = task.Id,
+                TaskTitle = task.Title,
+                DueDate = task.DueDate.Value,
+                OwnerUserId = task.OwnerUserId,
+                OwnerEmail = task.Owner?.Email ?? "unknown@example.com",
+                OwnerDisplayName = task.Owner?.DisplayName ?? "Unknown",
+                ReminderType = reminderType,
+                HasReminderBeenSent = hasReminderBeenSent,
+                TimeUntilDue = timeUntilDue
+            });
+        }
+
+        return pendingReminders;
+    }
+
+    public async Task<ReminderProcessingResultDto> ProcessPendingRemindersAsync(CancellationToken ct = default)
+    {
+        var pendingReminders = await GetPendingRemindersAsync(ct);
+        var result = new ReminderProcessingResultDto
+        {
+            TotalPending = pendingReminders.Count
+        };
+
+        foreach (var pending in pendingReminders.Where(p => !p.HasReminderBeenSent))
+        {
+            try
+            {
+                // Simulate sending reminder (95% success rate for demo purposes)
+                var deliverySuccessful = SimulateReminderDelivery();
+                var deliveryDetails = deliverySuccessful ? "Reminder sent successfully" : "Failed to send reminder";
+
+                // Log the reminder attempt
+                var logSuccess = await LogReminderSentAsync(
+                    pending.TaskId,
+                    pending.ReminderType,
+                    deliverySuccessful,
+                    deliveryDetails,
+                    ct);
+
+                if (logSuccess)
+                {
+                    result.ProcessedCount++;
+                    result.ProcessedTaskIds.Add(pending.TaskId);
+                    
+                    if (deliverySuccessful)
+                    {
+                        result.SuccessfulCount++;
+                    }
+                    else
+                    {
+                        result.FailedCount++;
+                        result.Errors.Add($"Failed to deliver reminder for task '{pending.TaskTitle}'");
+                    }
+                }
+                else
+                {
+                    result.FailedCount++;
+                    result.Errors.Add($"Failed to log reminder for task '{pending.TaskTitle}'");
+                }
+            }
+            catch (Exception ex)
+            {
+                result.FailedCount++;
+                result.Errors.Add($"Error processing reminder for task '{pending.TaskTitle}': {ex.Message}");
+            }
+        }
+
+        result.SkippedCount = result.TotalPending - result.ProcessedCount;
+        return result;
+    }
+
+    private static string DetermineReminderType(TimeSpan timeUntilDue)
+    {
+        return timeUntilDue.TotalHours switch
+        {
+            <= 1 => "1Hour",
+            <= 4 => "4Hours",
+            <= 24 => "24Hours",
+            _ => "24Hours" // Default fallback
+        };
+    }
+
+    private static bool SimulateReminderDelivery()
+    {
+        // Simulate 95% success rate for demo purposes
+        var random = new Random();
+        return random.NextDouble() < 0.95;
+    }
 }

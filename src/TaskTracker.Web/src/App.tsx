@@ -7,6 +7,7 @@ import TaskListPage from './routes/TaskListPage';
 import TaskDetailPage from './routes/TaskDetailPage';
 import TaskEditPage from './routes/TaskEditPage';
 import ChangePasswordPage from './routes/ChangePasswordPage';
+import RemindersPage from './routes/RemindersPage';
 
 function AppRoutes() {
   const { isAuthenticated } = useAuth();
@@ -23,6 +24,7 @@ function AppRoutes() {
           <Route path="/tasks/new" element={<TaskEditPage />} />
           <Route path="/tasks/:id" element={<TaskDetailPage />} />
           <Route path="/tasks/:id/edit" element={<TaskEditPage />} />
+          <Route path="/reminders" element={<RemindersPage />} />
           <Route path="/change-password" element={<ChangePasswordPage />} />
         </Route>
       ) : (

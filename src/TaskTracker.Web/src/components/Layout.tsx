@@ -28,6 +28,12 @@ export default function Layout() {
                 >
                   New Task
                 </Link>
+                <Link 
+                  to="/reminders" 
+                  className="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium"
+                >
+                  Reminders
+                </Link>
               </nav>
             </div>
 
