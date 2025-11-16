@@ -1,0 +1,15 @@
+C:\Users\91989\source\banayan-task-tracker\src\TaskTracker.Application\bin\Debug\net8.0\TaskTracker.Application.deps.json
+C:\Users\91989\source\banayan-task-tracker\src\TaskTracker.Application\bin\Debug\net8.0\TaskTracker.Application.dll
+C:\Users\91989\source\banayan-task-tracker\src\TaskTracker.Application\bin\Debug\net8.0\TaskTracker.Application.pdb
+C:\Users\91989\source\banayan-task-tracker\src\TaskTracker.Application\bin\Debug\net8.0\TaskTracker.Domain.dll
+C:\Users\91989\source\banayan-task-tracker\src\TaskTracker.Application\bin\Debug\net8.0\TaskTracker.Domain.pdb
+C:\Users\91989\source\banayan-task-tracker\src\TaskTracker.Application\obj\Debug\net8.0\TaskTracker.Application.csproj.AssemblyReference.cache
+C:\Users\91989\source\banayan-task-tracker\src\TaskTracker.Application\obj\Debug\net8.0\TaskTracker.Application.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\91989\source\banayan-task-tracker\src\TaskTracker.Application\obj\Debug\net8.0\TaskTracker.Application.AssemblyInfoInputs.cache
+C:\Users\91989\source\banayan-task-tracker\src\TaskTracker.Application\obj\Debug\net8.0\TaskTracker.Application.AssemblyInfo.cs
+C:\Users\91989\source\banayan-task-tracker\src\TaskTracker.Application\obj\Debug\net8.0\TaskTracker.Application.csproj.CoreCompileInputs.cache
+C:\Users\91989\source\banayan-task-tracker\src\TaskTracker.Application\obj\Debug\net8.0\TaskTrac.CBC11A5F.Up2Date
+C:\Users\91989\source\banayan-task-tracker\src\TaskTracker.Application\obj\Debug\net8.0\TaskTracker.Application.dll
+C:\Users\91989\source\banayan-task-tracker\src\TaskTracker.Application\obj\Debug\net8.0\refint\TaskTracker.Application.dll
+C:\Users\91989\source\banayan-task-tracker\src\TaskTracker.Application\obj\Debug\net8.0\TaskTracker.Application.pdb
+C:\Users\91989\source\banayan-task-tracker\src\TaskTracker.Application\obj\Debug\net8.0\ref\TaskTracker.Application.dll
