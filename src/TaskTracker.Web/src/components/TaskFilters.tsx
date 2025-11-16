@@ -59,9 +59,10 @@ export default function TaskFilters({
             className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
             <option value="">All Status</option>
-            <option value={TaskState.Todo}>To Do</option>
+            <option value={TaskState.New}>New</option>
             <option value={TaskState.InProgress}>In Progress</option>
-            <option value={TaskState.Done}>Done</option>
+            <option value={TaskState.Completed}>Completed</option>
+            <option value={TaskState.Archived}>Archived</option>
           </select>
         </div>
 

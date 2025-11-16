@@ -13,12 +13,14 @@ export default function TaskCard({ task, onDelete }: TaskCardProps) {
 
   const getStateColor = (state: TaskState) => {
     switch (state) {
-      case TaskState.Todo:
+      case TaskState.New:
         return 'bg-gray-100 text-gray-800';
       case TaskState.InProgress:
         return 'bg-blue-100 text-blue-800';
-      case TaskState.Done:
+      case TaskState.Completed:
         return 'bg-green-100 text-green-800';
+      case TaskState.Archived:
+        return 'bg-purple-100 text-purple-800';
       default:
         return 'bg-gray-100 text-gray-800';
     }
@@ -68,8 +70,8 @@ export default function TaskCard({ task, onDelete }: TaskCardProps) {
       )}
 
       <div className="flex flex-wrap gap-2 mb-3">
-        <span className={`px-2 py-1 rounded-full text-xs font-medium ${getStateColor(task.state)}`}>
-          {task.state}
+        <span className={`px-2 py-1 rounded-full text-xs font-medium ${getStateColor(task.status)}`}>
+          {task.status}
         </span>
         <span className={`px-2 py-1 rounded-full text-xs font-medium ${getPriorityColor(task.priority)}`}>
           {task.priority}

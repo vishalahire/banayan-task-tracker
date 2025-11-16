@@ -57,12 +57,14 @@ export default function TaskDetailPage() {
 
   const getStateColor = (state: TaskState) => {
     switch (state) {
-      case TaskState.Todo:
+      case TaskState.New:
         return 'bg-gray-100 text-gray-800';
       case TaskState.InProgress:
         return 'bg-blue-100 text-blue-800';
-      case TaskState.Done:
+      case TaskState.Completed:
         return 'bg-green-100 text-green-800';
+      case TaskState.Archived:
+        return 'bg-purple-100 text-purple-800';
       default:
         return 'bg-gray-100 text-gray-800';
     }
@@ -135,8 +137,8 @@ export default function TaskDetailPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
             <div>
               <h3 className="text-sm font-medium text-gray-500 mb-2">Status</h3>
-              <span className={`inline-flex px-3 py-1 rounded-full text-sm font-medium ${getStateColor(task.state)}`}>
-                {task.state}
+              <span className={`inline-flex px-3 py-1 rounded-full text-sm font-medium ${getStateColor(task.status)}`}>
+                {task.status}
               </span>
             </div>
             <div>
@@ -198,6 +200,7 @@ export default function TaskDetailPage() {
           </div>
 
           <AttachmentList
+            taskId={task.id}
             attachments={attachments}
             onDelete={handleAttachmentDelete}
           />
@@ -211,22 +214,18 @@ export default function TaskDetailPage() {
             <h3 className="text-lg font-medium text-gray-900 mb-4">Activity History</h3>
             <div className="space-y-4">
               {auditEvents.map((event) => (
-                <div key={event.id} className="border-l-4 border-gray-200 pl-4 py-2">
+                <div key={event.id} className="border-l-4 border-blue-200 pl-4 py-2">
                   <div className="flex justify-between items-start">
-                    <div>
+                    <div className="flex-1">
                       <div className="text-sm font-medium text-gray-900">
-                        {event.action}
+                        {event.action.replace(/([A-Z])/g, ' $1').trim()}
                       </div>
-                      <div className="text-xs text-gray-500">
-                        by {event.userEmail} • {formatDate(event.timestamp)}
+                      <div className="text-sm text-gray-700 mt-1">
+                        {event.details}
                       </div>
-                      {event.changes && Object.keys(event.changes).length > 0 && (
-                        <div className="mt-2 text-xs text-gray-600">
-                          <pre className="whitespace-pre-wrap">
-                            {JSON.stringify(event.changes, null, 2)}
-                          </pre>
-                        </div>
-                      )}
+                      <div className="text-xs text-gray-500 mt-1">
+                        by {event.userDisplayName} • {formatDate(event.createdAt)}
+                      </div>
                     </div>
                   </div>
                 </div>

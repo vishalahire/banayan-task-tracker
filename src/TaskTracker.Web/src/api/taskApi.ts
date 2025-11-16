@@ -43,6 +43,10 @@ export const taskApi = {
     return apiClient.put<Task>(`/api/tasks/${id}`, command);
   },
 
+  updateTaskStatus: (id: string, status: TaskState): Promise<void> => {
+    return apiClient.patch<void>(`/api/tasks/${id}/status`, { status });
+  },
+
   deleteTask: (id: string): Promise<void> => {
     return apiClient.delete<void>(`/api/tasks/${id}`);
   },

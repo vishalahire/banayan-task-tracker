@@ -40,7 +40,7 @@ export default function TaskListPage() {
       if (tags) filters.tags = tags.split(',').map(t => t.trim()).filter(t => t);
 
       const response = await taskApi.getTasks(filters);
-      setTasks(response.tasks);
+      setTasks(response.items);
       setTotalCount(response.totalCount);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to load tasks');

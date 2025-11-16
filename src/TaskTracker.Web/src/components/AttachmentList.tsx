@@ -2,11 +2,12 @@ import { TaskAttachment } from '../types';
 import { attachmentApi } from '../api/attachmentApi';
 
 interface AttachmentListProps {
+  taskId: string;
   attachments: TaskAttachment[];
   onDelete: (attachmentId: string) => void;
 }
 
-export default function AttachmentList({ attachments, onDelete }: AttachmentListProps) {
+export default function AttachmentList({ taskId, attachments, onDelete }: AttachmentListProps) {
   const formatFileSize = (bytes: number) => {
     if (bytes === 0) return '0 Bytes';
     const k = 1024;
@@ -15,15 +16,19 @@ export default function AttachmentList({ attachments, onDelete }: AttachmentList
     return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
   };
 
-  const handleDownload = (attachment: TaskAttachment) => {
-    const downloadUrl = attachmentApi.downloadAttachment(attachment.id);
-    window.open(downloadUrl, '_blank');
+  const handleDownload = async (attachment: TaskAttachment) => {
+    try {
+      await attachmentApi.downloadAttachment(taskId, attachment.id);
+    } catch (error) {
+      console.error('Download failed:', error);
+      alert('Failed to download attachment');
+    }
   };
 
   const handleDelete = async (attachment: TaskAttachment) => {
     if (window.confirm(`Are you sure you want to delete ${attachment.fileName}?`)) {
       try {
-        await attachmentApi.deleteAttachment(attachment.id);
+        await attachmentApi.deleteAttachment(taskId, attachment.id);
         onDelete(attachment.id);
       } catch (err) {
         alert('Failed to delete attachment');

@@ -10,7 +10,7 @@ export interface Task {
   id: string;
   title: string;
   description?: string;
-  state: TaskState;
+  status: TaskState;
   priority: TaskPriority;
   dueDate?: string;
   tags: string[];
@@ -29,7 +29,7 @@ export interface CreateTaskCommand {
 export interface UpdateTaskCommand {
   title?: string;
   description?: string;
-  state?: TaskState;
+  status?: TaskState;
   priority?: TaskPriority;
   dueDate?: string;
   tags?: string[];
@@ -49,10 +49,10 @@ export interface AuditEvent {
   entityId: string;
   entityType: string;
   action: string;
-  changes: Record<string, any>;
+  details: string;
   userId: string;
-  userEmail: string;
-  timestamp: string;
+  userDisplayName: string;
+  createdAt: string;
 }
 
 export interface LoginRequest {
@@ -79,16 +79,20 @@ export interface ChangePasswordRequest {
 }
 
 export interface TasksResponse {
-  tasks: Task[];
+  items: Task[];
   totalCount: number;
-  page: number;
+  pageNumber: number;
   pageSize: number;
+  totalPages: number;
+  hasNextPage: boolean;
+  hasPreviousPage: boolean;
 }
 
 export enum TaskState {
-  Todo = 'Todo',
+  New = 'New',
   InProgress = 'InProgress',
-  Done = 'Done'
+  Completed = 'Completed',
+  Archived = 'Archived'
 }
 
 export enum TaskPriority {
