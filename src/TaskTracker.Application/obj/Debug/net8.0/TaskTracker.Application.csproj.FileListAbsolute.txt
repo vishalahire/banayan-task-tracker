@@ -13,3 +13,4 @@ C:\Users\91989\source\banayan-task-tracker\src\TaskTracker.Application\obj\Debug
 C:\Users\91989\source\banayan-task-tracker\src\TaskTracker.Application\obj\Debug\net8.0\refint\TaskTracker.Application.dll
 C:\Users\91989\source\banayan-task-tracker\src\TaskTracker.Application\obj\Debug\net8.0\TaskTracker.Application.pdb
 C:\Users\91989\source\banayan-task-tracker\src\TaskTracker.Application\obj\Debug\net8.0\ref\TaskTracker.Application.dll
+C:\Users\91989\source\banayan-task-tracker\src\TaskTracker.Application\obj\Debug\net8.0\TaskTracker.Application.sourcelink.json

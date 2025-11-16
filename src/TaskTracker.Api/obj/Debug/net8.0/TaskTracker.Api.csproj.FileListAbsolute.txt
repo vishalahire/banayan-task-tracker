@@ -128,3 +128,4 @@ C:\Users\91989\source\banayan-task-tracker\src\TaskTracker.Api\obj\Debug\net8.0\
 C:\Users\91989\source\banayan-task-tracker\src\TaskTracker.Api\obj\Debug\net8.0\TaskTracker.Api.pdb
 C:\Users\91989\source\banayan-task-tracker\src\TaskTracker.Api\obj\Debug\net8.0\TaskTracker.Api.genruntimeconfig.cache
 C:\Users\91989\source\banayan-task-tracker\src\TaskTracker.Api\obj\Debug\net8.0\ref\TaskTracker.Api.dll
+C:\Users\91989\source\banayan-task-tracker\src\TaskTracker.Api\obj\Debug\net8.0\TaskTracker.Api.sourcelink.json

@@ -1,18 +1,24 @@
-Microsoft Visual Studio Solution File, Format Version 12.00
+﻿Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.2.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{827E0CD3-B72D-47B6-A68D-7590B98EB39B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskTracker.Domain", "src/TaskTracker.Domain/TaskTracker.Domain.csproj", "{DE31A523-8602-5635-917B-4AB95B2413CF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskTracker.Domain", "src\TaskTracker.Domain\TaskTracker.Domain.csproj", "{DE31A523-8602-5635-917B-4AB95B2413CF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskTracker.Application", "src/TaskTracker.Application/TaskTracker.Application.csproj", "{BC7A4F3D-7E2A-4B89-8F1C-5D8E9F2A6B3C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskTracker.Application", "src\TaskTracker.Application\TaskTracker.Application.csproj", "{BC7A4F3D-7E2A-4B89-8F1C-5D8E9F2A6B3C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskTracker.Infrastructure", "src/TaskTracker.Infrastructure/TaskTracker.Infrastructure.csproj", "{8A2C5E4F-1B6D-4C3A-9E7F-2D1A8B5C9E0D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskTracker.Infrastructure", "src\TaskTracker.Infrastructure\TaskTracker.Infrastructure.csproj", "{8A2C5E4F-1B6D-4C3A-9E7F-2D1A8B5C9E0D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskTracker.Api", "src/TaskTracker.Api/TaskTracker.Api.csproj", "{4F8D2E6A-9C1B-5A3D-7E8F-1B2C3D4E5F6A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskTracker.Api", "src\TaskTracker.Api\TaskTracker.Api.csproj", "{4F8D2E6A-9C1B-5A3D-7E8F-1B2C3D4E5F6A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskTracker.Worker", "src/TaskTracker.Worker/TaskTracker.Worker.csproj", "{6B7E3F2A-5D8C-4A9B-8E1F-3C4D5E6F7A8B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskTracker.Worker", "src\TaskTracker.Worker\TaskTracker.Worker.csproj", "{6B7E3F2A-5D8C-4A9B-8E1F-3C4D5E6F7A8B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{156D9275-DF62-4770-94A5-307F2705C279}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskTracker.UnitTests", "tests\TaskTracker.UnitTests\TaskTracker.UnitTests.csproj", "{FE74B2F5-9DEC-4D15-A0D5-548E0A45116A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskTracker.IntegrationTests", "tests\TaskTracker.IntegrationTests\TaskTracker.IntegrationTests.csproj", "{F81A7151-2DA1-409E-9A4E-294D3A511437}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -40,6 +46,14 @@ Global
 		{6B7E3F2A-5D8C-4A9B-8E1F-3C4D5E6F7A8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6B7E3F2A-5D8C-4A9B-8E1F-3C4D5E6F7A8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6B7E3F2A-5D8C-4A9B-8E1F-3C4D5E6F7A8B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FE74B2F5-9DEC-4D15-A0D5-548E0A45116A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FE74B2F5-9DEC-4D15-A0D5-548E0A45116A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FE74B2F5-9DEC-4D15-A0D5-548E0A45116A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FE74B2F5-9DEC-4D15-A0D5-548E0A45116A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F81A7151-2DA1-409E-9A4E-294D3A511437}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F81A7151-2DA1-409E-9A4E-294D3A511437}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F81A7151-2DA1-409E-9A4E-294D3A511437}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F81A7151-2DA1-409E-9A4E-294D3A511437}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -50,6 +64,8 @@ Global
 		{8A2C5E4F-1B6D-4C3A-9E7F-2D1A8B5C9E0D} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
 		{4F8D2E6A-9C1B-5A3D-7E8F-1B2C3D4E5F6A} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
 		{6B7E3F2A-5D8C-4A9B-8E1F-3C4D5E6F7A8B} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
+		{FE74B2F5-9DEC-4D15-A0D5-548E0A45116A} = {156D9275-DF62-4770-94A5-307F2705C279}
+		{F81A7151-2DA1-409E-9A4E-294D3A511437} = {156D9275-DF62-4770-94A5-307F2705C279}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {148DB867-677A-45A2-9507-072BD351C556}
