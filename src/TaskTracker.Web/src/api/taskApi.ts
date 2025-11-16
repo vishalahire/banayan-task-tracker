@@ -16,15 +16,15 @@ export const taskApi = {
   getTasks: (filters: TaskFilters = {}): Promise<TasksResponse> => {
     const params = new URLSearchParams();
     
-    if (filters.search) params.append('search', filters.search);
-    if (filters.state) params.append('state', filters.state);
+    if (filters.search) params.append('searchText', filters.search);
+    if (filters.state) params.append('status', filters.state);
     if (filters.priority) params.append('priority', filters.priority);
     if (filters.dueDateFrom) params.append('dueDateFrom', filters.dueDateFrom);
     if (filters.dueDateTo) params.append('dueDateTo', filters.dueDateTo);
     if (filters.tags?.length) {
       filters.tags.forEach(tag => params.append('tags', tag));
     }
-    if (filters.page) params.append('page', filters.page.toString());
+    if (filters.page) params.append('pageNumber', filters.page.toString());
     if (filters.pageSize) params.append('pageSize', filters.pageSize.toString());
 
     const queryString = params.toString();
