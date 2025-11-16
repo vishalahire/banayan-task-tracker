@@ -1,0 +1,36 @@
+# infra/Dockerfile.worker
+# Multi-stage build for TaskTracker.Worker
+
+# Build stage
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+WORKDIR /app
+
+# Copy project files in dependency order and restore
+COPY src/TaskTracker.Domain/TaskTracker.Domain.csproj src/TaskTracker.Domain/
+RUN dotnet restore src/TaskTracker.Domain/TaskTracker.Domain.csproj
+
+COPY src/TaskTracker.Application/TaskTracker.Application.csproj src/TaskTracker.Application/
+RUN dotnet restore src/TaskTracker.Application/TaskTracker.Application.csproj
+
+COPY src/TaskTracker.Infrastructure/TaskTracker.Infrastructure.csproj src/TaskTracker.Infrastructure/
+RUN dotnet restore src/TaskTracker.Infrastructure/TaskTracker.Infrastructure.csproj
+
+COPY src/TaskTracker.Worker/TaskTracker.Worker.csproj src/TaskTracker.Worker/
+RUN dotnet restore src/TaskTracker.Worker/TaskTracker.Worker.csproj
+
+# Copy source code
+COPY src/ src/
+
+# Build and publish
+WORKDIR /app/src/TaskTracker.Worker
+RUN dotnet publish -c Release -o /app/publish --no-restore
+
+# Runtime stage
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS runtime
+WORKDIR /app
+
+# Copy published files
+COPY --from=build /app/publish .
+
+# Start the application
+ENTRYPOINT ["dotnet", "TaskTracker.Worker.dll"]

@@ -1,0 +1,83 @@
+version: '3.8'
+
+services:
+  # PostgreSQL Database
+  db:
+    image: postgres:15-alpine
+    container_name: tasktracker-db
+    environment:
+      POSTGRES_DB: tasktracker
+      POSTGRES_USER: taskuser
+      POSTGRES_PASSWORD: taskpassword
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init-identity-tables.sql:/docker-entrypoint-initdb.d/01-init-identity-tables.sql
+    networks:
+      - tasktracker-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U taskuser -d tasktracker"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # TaskTracker API
+  api:
+    build:
+      context: ..
+      dockerfile: infra/Dockerfile.api
+    container_name: tasktracker-api
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      TASKTRACKER_CONNECTION_STRING: "Host=db;Port=5432;Database=tasktracker;Username=taskuser;Password=taskpassword"
+    ports:
+      - "5000:5000"
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - tasktracker-network
+    restart: unless-stopped
+
+  # TaskTracker Worker
+  worker:
+    build:
+      context: ..
+      dockerfile: infra/Dockerfile.worker
+    container_name: tasktracker-worker
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      TASKTRACKER_CONNECTION_STRING: "Host=db;Port=5432;Database=tasktracker;Username=taskuser;Password=taskpassword"
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - tasktracker-network
+    restart: unless-stopped
+
+  # TaskTracker Web Frontend
+  web:
+    build:
+      context: ..
+      dockerfile: infra/Dockerfile.web
+    container_name: tasktracker-web
+    environment:
+      VITE_API_BASE_URL: http://api:5000
+    ports:
+      - "3000:3000"
+    depends_on:
+      - api
+    networks:
+      - tasktracker-network
+    restart: unless-stopped
+
+# Named volumes
+volumes:
+  postgres_data:
+    driver: local
+
+# Networks
+networks:
+  tasktracker-network:
+    driver: bridge

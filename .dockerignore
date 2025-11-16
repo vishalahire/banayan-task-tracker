@@ -1,0 +1,49 @@
+# .dockerignore
+# Ignore common files and directories that shouldn't be included in Docker builds
+
+# Build output
+**/bin/
+**/obj/
+**/out/
+**/publish/
+
+# Node modules and build artifacts
+**/node_modules/
+**/dist/
+**/build/
+
+# IDE files
+**/.vs/
+**/.vscode/
+**/*.user
+**/*.suo
+**/*.sln.docstates
+
+# Git
+.git/
+.gitignore
+README.md
+
+# Docker files (except when building)
+Dockerfile*
+docker-compose*
+
+# Environment files with secrets
+**/.env.local
+**/.env.production
+
+# Test files
+**/TestResults/
+**/*.trx
+
+# Logs
+**/logs/
+**/*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Package files
+**/*.nupkg
+**/*.snupkg

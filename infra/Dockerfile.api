@@ -1,0 +1,42 @@
+# infra/Dockerfile.api
+# Multi-stage build for TaskTracker.Api
+
+# Build stage
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+WORKDIR /app
+
+# Copy project files in dependency order and restore
+COPY src/TaskTracker.Domain/TaskTracker.Domain.csproj src/TaskTracker.Domain/
+RUN dotnet restore src/TaskTracker.Domain/TaskTracker.Domain.csproj
+
+COPY src/TaskTracker.Application/TaskTracker.Application.csproj src/TaskTracker.Application/
+RUN dotnet restore src/TaskTracker.Application/TaskTracker.Application.csproj
+
+COPY src/TaskTracker.Infrastructure/TaskTracker.Infrastructure.csproj src/TaskTracker.Infrastructure/
+RUN dotnet restore src/TaskTracker.Infrastructure/TaskTracker.Infrastructure.csproj
+
+COPY src/TaskTracker.Api/TaskTracker.Api.csproj src/TaskTracker.Api/
+RUN dotnet restore src/TaskTracker.Api/TaskTracker.Api.csproj
+
+# Copy source code
+COPY src/ src/
+
+# Build and publish
+WORKDIR /app/src/TaskTracker.Api
+RUN dotnet publish -c Release -o /app/publish --no-restore
+
+# Runtime stage
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS runtime
+WORKDIR /app
+
+# Copy published files
+COPY --from=build /app/publish .
+
+# Expose port
+EXPOSE 5000
+
+# Set environment variables
+ENV ASPNETCORE_URLS=http://+:5000
+
+# Start the application
+ENTRYPOINT ["dotnet", "TaskTracker.Api.dll"]
